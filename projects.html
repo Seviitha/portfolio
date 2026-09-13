@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sevitha A | Projects - Software & Web Portfolio</title>
+  <meta name="description" content="Explore software and web projects developed by Sevitha A: SmartSense, VoiceMart, UrbanEye, and Java Programming Projects. Filterable by category.">
+  <meta name="author" content="Sevitha A">
+  <meta name="keywords" content="Sevitha A, Projects, SmartSense, VoiceMart, UrbanEye, Java Projects, Web Development">
+  
+  <!-- Open Graph Metadata -->
+  <meta property="og:title" content="Sevitha A | Projects Showcase">
+  <meta property="og:description" content="Explore software applications and accessible web development projects created by Sevitha A.">
+  <meta property="og:type" content="website">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Accessible Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Global Screen Reader Live Announcer -->
+  <div id="status-announcer" class="visually-hidden" aria-live="polite" role="status"></div>
+
+  <!-- Header & Navigation -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo" aria-label="Sevitha A Portfolio Home">
+        Sevitha A
+      </a>
+
+      <div class="nav-wrapper">
+        <nav id="primary-nav" class="primary-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="projects.html" class="nav-link" aria-current="page">Projects</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Switch to dark theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="menu-toggle" class="menu-toggle-btn" aria-expanded="false" aria-controls="primary-nav" aria-label="Open main navigation">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main id="main-content">
+    <div class="container">
+      
+      <!-- Section Header -->
+      <section class="section" aria-labelledby="projects-heading">
+        <h1 id="projects-heading">Portfolio Projects</h1>
+        <p class="lead">Select a category filter to explore my software engineering and web application projects.</p>
+
+        <!-- Accessible Filter Category Options -->
+        <div class="filter-container" aria-label="Project category filter options" role="group">
+          <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">All Projects</button>
+          <button type="button" class="filter-btn" data-filter="web" aria-pressed="false">Web Development</button>
+          <button type="button" class="filter-btn" data-filter="java" aria-pressed="false">Java Projects</button>
+        </div>
+
+        <!-- Filter Status Live Region for Screen Readers -->
+        <div id="filter-status" class="visually-hidden" aria-live="polite">Showing all 4 projects</div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+
+          <!-- Project 1: SmartSense -->
+          <article class="project-card" data-category="web">
+            <div class="project-header">
+              <span class="project-category-tag">Web Development</span>
+            </div>
+            <h2>SmartSense</h2>
+            <p>
+              An interactive web application designed for real-time environmental sensing and monitoring analytics. Features data visualizations, threshold alerts, and responsive metrics tracking.
+            </p>
+            <div class="project-tags">
+              <span class="tag">HTML5</span>
+              <span class="tag">CSS3</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Web APIs</span>
+            </div>
+            <div class="project-footer">
+              <a href="#smartsense-demo" class="btn btn-secondary" aria-label="View SmartSense project details">View Details</a>
+            </div>
+          </article>
+
+          <!-- Project 2: VoiceMart -->
+          <article class="project-card" data-category="web">
+            <div class="project-header">
+              <span class="project-category-tag">Web Development</span>
+            </div>
+            <h2>VoiceMart</h2>
+            <p>
+              An accessible e-commerce web platform integrating voice recognition navigation for hands-free shopping, enabling users with visual or motor disabilities to browse and purchase seamlessly.
+            </p>
+            <div class="project-tags">
+              <span class="tag">HTML5</span>
+              <span class="tag">CSS Grid</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Speech API</span>
+            </div>
+            <div class="project-footer">
+              <a href="#voicemart-demo" class="btn btn-secondary" aria-label="View VoiceMart project details">View Details</a>
+            </div>
+          </article>
+
+          <!-- Project 3: UrbanEye -->
+          <article class="project-card" data-category="web">
+            <div class="project-header">
+              <span class="project-category-tag">Web Development</span>
+            </div>
+            <h2>UrbanEye</h2>
+            <p>
+              A smart city monitoring dashboard providing real-time urban traffic analytics, civic incident logging, and public infrastructure status reports through a clean, responsive web interface.
+            </p>
+            <div class="project-tags">
+              <span class="tag">HTML5</span>
+              <span class="tag">CSS3</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">UX / Accessibility</span>
+            </div>
+            <div class="project-footer">
+              <a href="#urbaneye-demo" class="btn btn-secondary" aria-label="View UrbanEye project details">View Details</a>
+            </div>
+          </article>
+
+          <!-- Project 4: Java Programming Projects -->
+          <article class="project-card" data-category="java">
+            <div class="project-header">
+              <span class="project-category-tag">Java</span>
+            </div>
+            <h2>Java Programming Projects</h2>
+            <p>
+              A comprehensive collection of Object-Oriented software applications, data structure implementations (Trees, Graphs, Heaps), and algorithmic problem solutions engineered in Java.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Java</span>
+              <span class="tag">OOP</span>
+              <span class="tag">Data Structures</span>
+              <span class="tag">Algorithms</span>
+            </div>
+            <div class="project-footer">
+              <a href="#java-projects-details" class="btn btn-secondary" aria-label="View Java Programming Projects details">View Details</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="site-logo">Sevitha A</span>
+          <p>B.E. Computer Science and Engineering Student & Aspiring Software Engineer.</p>
+        </div>
+
+        <nav class="footer-links" aria-label="Footer navigation">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Me</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-contact">
+          <h3>Contact Details</h3>
+          <address>
+            <p>Location: Tamil Nadu, India</p>
+            <p>Email: <a href="mailto:sevitha.cs@example.com">sevitha.cs@example.com</a></p>
+          </address>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year"></span> Sevitha A. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>
