@@ -1,19 +1,22 @@
-/* ==========================================
+/* ==========================================================================
    Sevitha A - Personal Portfolio Stylesheet
-   WCAG 2.1 AA Compliant & Modern Standard CSS
-   ========================================== */
+   Assignment: Advanced CSS3 & Responsive Architecture
+   Mobile-First | CSS Grid | Flexbox | CSS Custom Properties | WCAG 2.1 AA
+   ========================================================================== */
 
-/* ------------------------------------------
+/* --------------------------------------------------------------------------
    1. CSS Custom Properties & Design Tokens
-   ------------------------------------------ */
+   -------------------------------------------------------------------------- */
 :root {
-  /* Color Palette - Light Mode */
+  /* Color System - Light Theme */
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
   --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
   --bg-nav: rgba(255, 255, 255, 0.92);
   --bg-input: #ffffff;
   --bg-badge: #e0e7ff;
+  --bg-tag: #f1f5f9;
 
   --text-primary: #0f172a;
   --text-secondary: #334155;
@@ -26,18 +29,24 @@
   --color-primary-active: #1e40af;
   --color-secondary: #0f172a;
   --color-secondary-hover: #1e293b;
+  --color-accent: #3b82f6;
 
-  --border-color: #cbd5e1;
+  --border-color: #e2e8f0;
+  --border-card: #cbd5e1;
   --border-focus: #2563eb;
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.1);
-  --shadow-lg: 0 10px 25px rgba(15, 23, 42, 0.12);
 
-  /* Accessibility & Focus Rings */
+  /* Shadows & Elevations */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 25px rgba(15, 23, 42, 0.1), 0 4px 10px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 20px 30px rgba(15, 23, 42, 0.12);
+  --shadow-glow: 0 0 15px rgba(37, 99, 235, 0.25);
+
+  /* Accessibility Focus Ring */
   --focus-ring: #2563eb;
   --focus-ring-offset: 3px;
 
-  /* Status Colors */
+  /* Form & Status Alert Colors */
   --color-error: #dc2626;
   --bg-error: #fef2f2;
   --border-error: #f87171;
@@ -45,24 +54,44 @@
   --bg-success: #f0fdf4;
   --border-success: #86efac;
 
-  /* Layout & Spacing */
-  --max-width: 1120px;
+  /* Layout & Spacing Tokens */
+  --max-width: 1140px;
   --header-height: 4.5rem;
+
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* Border Radii Tokens */
+  --radius-xs: 0.25rem;
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
   --radius-full: 9999px;
-  --transition-speed: 0.2s;
+
+  /* Motion & Transition Tokens */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark Theme Overrides */
+/* Dark Theme System Overrides */
 [data-theme="dark"] {
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
   --bg-card: #1e293b;
+  --bg-card-hover: #26334d;
   --bg-nav: rgba(15, 23, 42, 0.92);
   --bg-input: #0f172a;
   --bg-badge: #312e81;
+  --bg-tag: #0f172a;
 
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
@@ -75,12 +104,17 @@
   --color-primary-active: #93c5fd;
   --color-secondary: #f8fafc;
   --color-secondary-hover: #e2e8f0;
+  --color-accent: #60a5fa;
 
   --border-color: #334155;
+  --border-card: #334155;
   --border-focus: #60a5fa;
+
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 35px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 15px rgba(96, 165, 250, 0.3);
 
   --focus-ring: #60a5fa;
 
@@ -92,9 +126,9 @@
   --border-success: #166534;
 }
 
-/* ------------------------------------------
-   2. Reset & General Styles
-   ------------------------------------------ */
+/* --------------------------------------------------------------------------
+   2. Mobile-First Reset & Core Base Styles
+   -------------------------------------------------------------------------- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -105,10 +139,11 @@ html {
   font-size: 100%;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   color: var(--text-primary);
@@ -116,25 +151,27 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+  overflow-x: hidden;
+  width: 100%;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
-/* ------------------------------------------
+/* --------------------------------------------------------------------------
    3. Accessibility & Utility Classes
-   ------------------------------------------ */
+   -------------------------------------------------------------------------- */
 .skip-link {
   position: absolute;
   top: -100px;
   left: 1rem;
   background: var(--color-primary);
   color: #ffffff;
-  padding: 0.75rem 1.25rem;
+  padding: var(--space-sm) var(--space-lg);
   z-index: 9999;
   border-radius: var(--radius-sm);
   text-decoration: none;
   font-weight: 700;
   box-shadow: var(--shadow-md);
-  transition: top var(--transition-speed) ease;
+  transition: top var(--transition-fast);
 }
 
 .skip-link:focus {
@@ -161,60 +198,60 @@ body {
   outline-offset: var(--focus-ring-offset);
 }
 
-/* Disable focus rings on click for pointer users while preserving keyboard focus */
 :focus:not(:focus-visible) {
   outline: none;
 }
 
-/* Container */
+/* Layout Container (Mobile First Padding) */
 .container {
   width: 100%;
   max-width: var(--max-width);
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
 }
 
-/* Main Content Area */
+/* Main Content Area Spacing */
 main {
   flex: 1;
-  padding-top: calc(var(--header-height) + 2rem);
-  padding-bottom: 4rem;
+  padding-top: calc(var(--header-height) + var(--space-md));
+  padding-bottom: var(--space-3xl);
 }
 
-/* ------------------------------------------
-   4. Typography & Headings
-   ------------------------------------------ */
+/* --------------------------------------------------------------------------
+   4. Typography & Fluid Headings
+   -------------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
   line-height: 1.25;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.85rem, 6vw, 3rem);
   letter-spacing: -0.025em;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-size: clamp(1.35rem, 4.5vw, 2.25rem);
   letter-spacing: -0.02em;
-  margin-top: 2rem;
+  margin-top: var(--space-lg);
 }
 
 h3 {
-  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  letter-spacing: -0.01em;
 }
 
 p {
   color: var(--text-secondary);
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--space-md);
 }
 
 p.lead {
-  font-size: 1.2rem;
+  font-size: clamp(1.05rem, 2.5vw, 1.2rem);
   color: var(--text-muted);
   line-height: 1.7;
 }
@@ -223,16 +260,16 @@ a {
   color: var(--text-link);
   text-decoration: underline;
   text-underline-offset: 3px;
-  transition: color var(--transition-speed) ease;
+  transition: color var(--transition-fast);
 }
 
 a:hover {
   color: var(--color-primary-hover);
 }
 
-/* ------------------------------------------
-   5. Header & Navigation
-   ------------------------------------------ */
+/* --------------------------------------------------------------------------
+   5. Site Header & Primary Navigation (Mobile-First Architecture)
+   -------------------------------------------------------------------------- */
 .site-header {
   position: fixed;
   top: 0;
@@ -240,12 +277,13 @@ a:hover {
   right: 0;
   height: var(--header-height);
   background-color: var(--bg-nav);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
   z-index: 1000;
   display: flex;
   align-items: center;
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
 .header-inner {
@@ -256,13 +294,15 @@ a:hover {
 }
 
 .site-logo {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: var(--text-primary);
   text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-xs);
+  letter-spacing: -0.01em;
+  transition: color var(--transition-fast);
 }
 
 .site-logo:hover {
@@ -272,22 +312,113 @@ a:hover {
 .nav-wrapper {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: var(--space-sm);
+}
+
+/* Mobile-First Toggle Buttons */
+.menu-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: var(--space-xs);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.menu-toggle-btn:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--color-primary);
+}
+
+.menu-toggle-btn svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: var(--space-xs);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--color-primary);
+  transform: rotate(15deg);
+}
+
+.theme-toggle-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Primary Navigation Drawer (Mobile-First Base) */
+.primary-nav {
+  display: none;
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--space-lg) var(--space-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+}
+
+.primary-nav.is-open {
+  display: block;
+  animation: navSlideDown 0.25s ease-out forwards;
+}
+
+@keyframes navSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .primary-nav ul {
   display: flex;
+  flex-direction: column;
   list-style: none;
-  gap: 1rem;
+  gap: var(--space-xs);
 }
 
 .nav-link {
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 600;
-  padding: 0.5rem 0.85rem;
-  border-radius: var(--radius-sm);
-  transition: color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+  font-size: 1.05rem;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  display: block;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .nav-link:hover {
@@ -298,88 +429,49 @@ a:hover {
 .nav-link[aria-current="page"] {
   color: var(--color-primary);
   background-color: rgba(37, 99, 235, 0.12);
-  border-bottom: 2px solid var(--color-primary);
+  font-weight: 700;
 }
 
-/* Theme Toggle Button */
-.theme-toggle-btn {
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 0.5rem;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
-}
-
-.theme-toggle-btn:hover {
-  background-color: var(--bg-primary);
-  border-color: var(--text-muted);
-}
-
-.theme-toggle-btn svg {
-  width: 1.35rem;
-  height: 1.35rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* Mobile Menu Toggle */
-.menu-toggle-btn {
-  display: none;
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 0.5rem;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-}
-
-.menu-toggle-btn svg {
-  width: 1.5rem;
-  height: 1.5rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
-
-/* ------------------------------------------
-   6. Buttons & Interactive Controls
-   ------------------------------------------ */
+/* --------------------------------------------------------------------------
+   6. Buttons & Interactive Controls (Flexbox Aligned)
+   -------------------------------------------------------------------------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  gap: var(--space-xs);
+  padding: 0.7rem 1.4rem;
+  font-size: 0.975rem;
   font-weight: 600;
   border-radius: var(--radius-md);
   text-decoration: none;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease, transform var(--transition-speed) ease;
+  text-align: center;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .btn-primary {
   background-color: var(--color-primary);
   color: #ffffff;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
   background-color: var(--color-primary-hover);
   color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+  background-color: var(--color-primary-active);
+  transform: translateY(0);
 }
 
 .btn-secondary {
   background-color: transparent;
-  border-color: var(--border-color);
+  border-color: var(--border-card);
   color: var(--text-primary);
 }
 
@@ -387,20 +479,26 @@ a:hover {
   background-color: var(--bg-card);
   border-color: var(--color-primary);
   color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
 }
 
 .btn-group {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  width: 100%;
 }
 
-/* ------------------------------------------
-   7. Hero & Homepage Sections
-   ------------------------------------------ */
+/* --------------------------------------------------------------------------
+   7. Hero & Homepage Sections (CSS Grid & Flexbox)
+   -------------------------------------------------------------------------- */
 .hero {
-  padding: 4rem 0 3rem 0;
+  padding: var(--space-xl) 0 var(--space-lg) 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -410,31 +508,30 @@ a:hover {
   display: inline-block;
   background-color: var(--bg-badge);
   color: var(--text-badge);
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 700;
   padding: 0.35rem 0.85rem;
   border-radius: var(--radius-full);
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  border: 1px solid rgba(99, 102, 241, 0.2);
 }
 
 .hero-subtitle {
-  font-size: 1.35rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
   color: var(--color-primary);
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-sm);
 }
 
 .hero-desc {
-  font-size: 1.15rem;
   max-width: 42rem;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-lg);
 }
 
-/* Section Wrapper */
 .section {
-  padding: 3.5rem 0;
+  padding: var(--space-2xl) 0;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -443,49 +540,51 @@ a:hover {
 }
 
 .section-header {
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--space-xl);
 }
 
-/* Skills Grid */
+/* Skills Grid (Responsive CSS Grid auto-fit) */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: var(--space-lg);
 }
 
 .skill-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 1.75rem;
+  padding: var(--space-lg);
   box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-normal);
 }
 
 .skill-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-md);
   border-color: var(--color-primary);
 }
 
 .skill-icon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
+  font-size: 2.2rem;
+  margin-bottom: var(--space-sm);
   display: inline-block;
 }
 
 .skill-card h3 {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-xs);
 }
 
 /* Call to Action Banner */
 .cta-banner {
   background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-primary) 100%);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 3rem 2rem;
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl) var(--space-lg);
   text-align: center;
-  margin-top: 2rem;
+  margin-top: var(--space-lg);
   box-shadow: var(--shadow-md);
 }
 
@@ -495,18 +594,18 @@ a:hover {
 
 .cta-banner p {
   max-width: 36rem;
-  margin: 0 auto 1.5rem auto;
+  margin: 0 auto var(--space-lg) auto;
 }
 
-/* ------------------------------------------
-   8. About Page & FAQ Accessibility
-   ------------------------------------------ */
+/* --------------------------------------------------------------------------
+   8. About Page, Bio, Education & FAQ Accordions
+   -------------------------------------------------------------------------- */
 .bio-article {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 2rem;
-  margin-bottom: 2rem;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
   box-shadow: var(--shadow-sm);
 }
 
@@ -515,41 +614,45 @@ a:hover {
   border: 1px solid var(--border-color);
   border-left: 5px solid var(--color-primary);
   border-radius: var(--radius-md);
-  padding: 1.75rem;
-  margin-top: 1rem;
+  padding: var(--space-lg);
+  margin-top: var(--space-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .education-card .degree {
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--text-primary);
+  margin-bottom: var(--space-2xs);
 }
 
 .education-card .meta {
   color: var(--text-muted);
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  margin-bottom: var(--space-md);
 }
 
-/* Aside Callout */
 .sidebar-callout {
   background-color: var(--bg-secondary);
   border: 1px dashed var(--border-color);
   border-radius: var(--radius-md);
-  padding: 1.5rem;
-  margin-top: 2rem;
+  padding: var(--space-lg);
+  margin-top: var(--space-xl);
 }
 
 .sidebar-callout h3 {
   font-size: 1.15rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-xs);
+  color: var(--color-primary);
 }
 
-/* FAQ Details & Summary */
+/* Accessible FAQ Accordion */
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
 }
 
 .faq-item {
@@ -557,23 +660,25 @@ a:hover {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: border-color var(--transition-speed) ease;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .faq-item[open] {
   border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .faq-item summary {
-  padding: 1.25rem;
+  padding: var(--space-md) var(--space-lg);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--text-primary);
   cursor: pointer;
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  user-select: none;
 }
 
 .faq-item summary::-webkit-details-marker {
@@ -582,10 +687,12 @@ a:hover {
 
 .faq-item summary::after {
   content: "+";
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 400;
   line-height: 1;
   color: var(--color-primary);
-  transition: transform var(--transition-speed) ease;
+  margin-left: var(--space-md);
+  transition: transform var(--transition-fast);
 }
 
 .faq-item[open] summary::after {
@@ -593,36 +700,38 @@ a:hover {
 }
 
 .faq-item summary:hover {
-  background-color: var(--bg-primary);
+  background-color: rgba(37, 99, 235, 0.04);
 }
 
 .faq-content {
-  padding: 0 1.25rem 1.25rem 1.25rem;
+  padding: 0 var(--space-lg) var(--space-md) var(--space-lg);
   color: var(--text-secondary);
   border-top: 1px solid var(--border-color);
-  margin-top: 0.5rem;
-  padding-top: 1rem;
+  margin-top: var(--space-xs);
+  padding-top: var(--space-md);
 }
 
-/* ------------------------------------------
-   9. Projects Page & Category Filter
-   ------------------------------------------ */
+/* --------------------------------------------------------------------------
+   9. Projects Page & Category Filtering (CSS Grid auto-fill)
+   -------------------------------------------------------------------------- */
 .filter-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+  margin-top: var(--space-md);
 }
 
 .filter-btn {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
-  padding: 0.6rem 1.25rem;
+  padding: 0.55rem 1.25rem;
   border-radius: var(--radius-full);
   font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all var(--transition-speed) ease;
+  transition: all var(--transition-fast);
 }
 
 .filter-btn:hover {
@@ -634,25 +743,26 @@ a:hover {
   background-color: var(--color-primary);
   color: #ffffff;
   border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Projects Grid */
+/* Projects Grid (Responsive CSS Grid auto-fill) */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
+  gap: var(--space-xl);
 }
 
 .project-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 2rem;
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-normal);
 }
 
 .project-card:hover {
@@ -669,7 +779,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-sm);
 }
 
 .project-category-tag {
@@ -679,74 +789,81 @@ a:hover {
   letter-spacing: 0.05em;
   background-color: var(--bg-badge);
   color: var(--text-badge);
-  padding: 0.25rem 0.6rem;
-  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-xs);
 }
 
 .project-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1.25rem 0;
+  gap: var(--space-xs);
+  margin: var(--space-md) 0;
 }
 
 .tag {
   font-size: 0.8rem;
   font-weight: 600;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-tag);
   color: var(--text-secondary);
-  padding: 0.25rem 0.6rem;
-  border-radius: var(--radius-sm);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-xs);
   border: 1px solid var(--border-color);
 }
 
 .project-footer {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
   border-top: 1px solid var(--border-color);
   display: flex;
-  gap: 1rem;
+  gap: var(--space-sm);
 }
 
-/* ------------------------------------------
-   10. Contact Page & Form Accessibility
-   ------------------------------------------ */
+.project-footer .btn {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   10. Contact Page & Form Validation Styling
+   -------------------------------------------------------------------------- */
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 2.5rem;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
   align-items: start;
+  margin-top: var(--space-md);
 }
 
 .contact-info-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 2rem;
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .contact-method {
-  margin-top: 1.5rem;
+  margin-top: var(--space-lg);
 }
 
 .contact-method-item {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
 }
 
 .contact-icon {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   color: var(--color-primary);
+  line-height: 1.2;
 }
 
-/* Form Styles */
+/* Accessible Contact Form */
 .contact-form {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 2rem;
+  padding: var(--space-lg);
   box-shadow: var(--shadow-sm);
 }
 
@@ -760,23 +877,24 @@ legend {
   font-size: 1.35rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-lg);
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-lg);
 }
 
 label {
   display: block;
   font-weight: 600;
+  font-size: 0.95rem;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-xs);
 }
 
 .required-star {
   color: var(--color-error);
-  margin-left: 0.2rem;
+  margin-left: var(--space-3xs);
 }
 
 input[type="text"],
@@ -790,7 +908,7 @@ textarea {
   background-color: var(--bg-input);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 input[type="text"]:focus,
@@ -799,7 +917,7 @@ textarea:focus {
   border-color: var(--border-focus);
 }
 
-/* Invalid Field Error Styling */
+/* Invalid Field Error States */
 input[aria-invalid="true"],
 textarea[aria-invalid="true"] {
   border-color: var(--color-error) !important;
@@ -809,21 +927,22 @@ textarea[aria-invalid="true"] {
 .error-message {
   display: none;
   color: var(--color-error);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  margin-top: 0.4rem;
+  margin-top: var(--space-2xs);
 }
 
 .error-message:not(:empty) {
   display: block;
 }
 
-/* Form Status Live Feedback Box */
+/* Dynamic Live Feedback Status Alert Box */
 .form-status-box {
-  margin-top: 1.5rem;
+  margin-bottom: var(--space-lg);
   padding: 1rem 1.25rem;
   border-radius: var(--radius-md);
   font-weight: 600;
+  font-size: 0.95rem;
   display: none;
 }
 
@@ -841,31 +960,33 @@ textarea[aria-invalid="true"] {
   border: 1px solid var(--border-error);
 }
 
-/* ------------------------------------------
-   11. Footer Section
-   ------------------------------------------ */
+/* --------------------------------------------------------------------------
+   11. Footer Section (Grid Columns & Flex items)
+   -------------------------------------------------------------------------- */
 .site-footer {
   background-color: var(--bg-secondary);
   border-top: 1px solid var(--border-color);
-  padding: 3rem 0 2rem 0;
+  padding: var(--space-2xl) 0 var(--space-lg) 0;
   margin-top: auto;
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
 .footer-inner {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
 }
 
 .footer-brand p {
-  margin-top: 0.5rem;
+  margin-top: var(--space-xs);
+  font-size: 0.95rem;
 }
 
 .footer-links h3,
 .footer-contact h3 {
   font-size: 1.1rem;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
 }
 
 .footer-links ul {
@@ -873,67 +994,123 @@ textarea[aria-invalid="true"] {
 }
 
 .footer-links li {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-xs);
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--color-primary);
 }
 
 address {
   font-style: normal;
   line-height: 1.6;
   color: var(--text-secondary);
+  font-size: 0.95rem;
 }
 
 .footer-bottom {
   text-align: center;
-  padding-top: 2rem;
+  padding-top: var(--space-lg);
   border-top: 1px solid var(--border-color);
   color: var(--text-muted);
   font-size: 0.9rem;
 }
 
-/* ------------------------------------------
-   12. Responsive Media Queries
-   ------------------------------------------ */
-@media (max-width: 768px) {
-  .menu-toggle-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+/* --------------------------------------------------------------------------
+   12. Progressive Enhancement Media Queries (min-width Breakpoints)
+   -------------------------------------------------------------------------- */
+
+/* Small Tablet Breakpoint: 640px */
+@media (min-width: 640px) {
+  .btn-group {
+    flex-direction: row;
+    width: auto;
   }
 
-  .primary-nav {
-    display: none;
-    position: absolute;
-    top: var(--header-height);
-    left: 0;
-    right: 0;
-    background-color: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-lg);
+  .btn {
+    width: auto;
   }
 
-  .primary-nav.is-open {
-    display: block;
+  .project-footer .btn {
+    width: auto;
   }
 
-  .primary-nav ul {
-    flex-direction: column;
-    gap: 0.75rem;
+  .container {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
   }
 
-  .nav-link {
-    display: block;
-    padding: 0.75rem 1rem;
-  }
-
-  .contact-grid {
-    grid-template-columns: 1fr;
+  .bio-article,
+  .contact-info-card,
+  .contact-form {
+    padding: var(--space-xl);
   }
 }
 
-/* ------------------------------------------
+/* Tablet / Desktop Navigation Breakpoint: 768px */
+@media (min-width: 768px) {
+  .menu-toggle-btn {
+    display: none;
+  }
+
+  .primary-nav {
+    display: block !important;
+    position: static;
+    background: transparent;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .primary-nav ul {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .nav-link {
+    display: inline-block;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.975rem;
+  }
+
+  .hero {
+    padding: var(--space-2xl) 0 var(--space-xl) 0;
+  }
+}
+
+/* Desktop Grid Layout Breakpoint: 1024px */
+@media (min-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1.4fr;
+    gap: var(--space-2xl);
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+/* Large Desktop Breakpoint: 1280px */
+@media (min-width: 1280px) {
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
    13. Reduced Motion Support (WCAG Requirement)
-   ------------------------------------------ */
+   -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
