@@ -53,6 +53,7 @@ function initTheme() {
   });
 
   function applyTheme(theme, announce = false) {
+    document.documentElement.style.colorScheme = theme;
     if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       themeToggleBtn.setAttribute('aria-label', 'Switch to light theme');

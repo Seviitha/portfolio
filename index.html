@@ -89,16 +89,62 @@
       
       <!-- Hero Section -->
       <section class="hero" aria-labelledby="hero-heading">
-        <span class="badge">Computer Science Student</span>
-        <h1 id="hero-heading">Hi, I'm Sevitha A</h1>
-        <p class="hero-subtitle">B.E. Computer Science and Engineering</p>
-        <p class="hero-desc lead">
-          Passionate programmer and software developer skilled in HTML5, CSS, Java, Python, and C. 
-          Dedicated to building modern, accessible, and user-centric web applications while applying robust computer science principles to solve complex problems.
-        </p>
-        <div class="btn-group">
-          <a href="projects.html" class="btn btn-primary">View Projects</a>
-          <a href="contact.html" class="btn btn-secondary">Contact Me</a>
+        <div class="hero-grid">
+          <div class="hero-content">
+            <span class="badge">Computer Science Student</span>
+            <h1 id="hero-heading">Hi, I'm <span class="gradient-text">Sevitha A</span></h1>
+            <p class="hero-subtitle">B.E. Computer Science and Engineering</p>
+            <p class="hero-desc lead">
+              Passionate programmer and software developer skilled in HTML5, CSS3, Java, Python, and C. 
+              Dedicated to building modern, accessible, and user-centric web applications while applying robust computer science principles to solve complex problems.
+            </p>
+            <div class="btn-group">
+              <a href="projects.html" class="btn btn-primary">
+                <span>View Projects</span>
+                <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="contact.html" class="btn btn-secondary">Contact Me</a>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="code-card">
+              <div class="code-card-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="code-card-title">developer.json</span>
+              </div>
+              <pre class="code-card-body"><code><span class="token-keyword">const</span> <span class="token-variable">developer</span> = {
+  <span class="token-property">name</span>: <span class="token-string">"Sevitha A"</span>,
+  <span class="token-property">degree</span>: <span class="token-string">"B.E. Computer Science"</span>,
+  <span class="token-property">skills</span>: [<span class="token-string">"HTML5"</span>, <span class="token-string">"CSS3 Grid"</span>, <span class="token-string">"Java"</span>, <span class="token-string">"Python"</span>, <span class="token-string">"C"</span>],
+  <span class="token-property">focus</span>: <span class="token-string">"Responsive UI & Architecture"</span>,
+  <span class="token-property">status</span>: <span class="token-string">"Ready to Code"</span>
+};</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Statistics Section (CSS Grid) -->
+      <section class="section stats-section" aria-label="Key statistics">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">4+</span>
+            <span class="stat-label">Featured Projects</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">5+</span>
+            <span class="stat-label">Core Tech Stack</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Responsive Design</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">WCAG 2.1</span>
+            <span class="stat-label">AA Accessibility</span>
+          </div>
         </div>
       </section>
 
